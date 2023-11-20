@@ -2,10 +2,10 @@ const express = require("express");
 const cors = require('cors');
 const mongoose = require("mongoose");
 const app = express();
-
+const collection = require("./mongo")
 app.use(express.json());
 
-const allowedOrigins = ['http://localhost:3000'];
+const allowedOrigins = ['http://localhost:3001'];
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -85,7 +85,53 @@ const feedbackSchema = new mongoose.Schema({
 
 const Feedback = mongoose.model('Feedback', feedbackSchema);
 const Prescription = mongoose.model('Prescription', prescriptionSchema);
+app.post("/login",async(req,res)=>{
+  const{email,password}=req.body
 
+  try{
+      const check=await collection.findOne({email: email, password: password})
+
+      if(check){
+          res.json("exist")
+      }
+      else{
+          res.json("notexist")
+      }
+
+  }
+  catch(e){
+      res.json("fail")
+  }
+
+})
+
+
+
+app.post("/signup", async (req, res) => {
+  const { name, email, password, age, phoneNumber, bloodGroup } = req.body;
+
+  const data = {
+    name: name,
+    email: email,
+    password: password,
+    age: age,
+    phoneNumber: phoneNumber,
+    bloodGroup: bloodGroup,
+  };
+
+  try {
+    const check = await collection.findOne({ email: email, password: password});
+
+    if (check) {
+      res.json("exist");
+    } else {
+      res.json("notexist");
+      await collection.insertMany([data]);
+    }
+  } catch (e) {
+    res.json("fail");
+  }
+});
 // CRUD operations for Feedback model
 app.post('/feedback', function (req, res) {
   const feedbackData = req.body;

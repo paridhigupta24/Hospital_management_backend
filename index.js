@@ -5,7 +5,7 @@ const app = express();
 const collection = require("./mongo")
 app.use(express.json());
 
-const allowedOrigins = ['http://localhost:3001'];
+const allowedOrigins = ['http://localhost:3000'];
 
 const corsOptions = {
   origin: function (origin, callback) {

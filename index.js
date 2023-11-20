@@ -25,7 +25,7 @@ app.use(cors(corsOptions));
 const db = async () => {
   try {
     await mongoose.connect(
-      "mongodb+srv://vishal:vishal9211@cluster0.qjsynjf.mongodb.net/?retryWrites=true&w=majority",
+      "mongodb+srv://paridhiggupta:1234@cluster0.fuc8v3o.mongodb.net/?retryWrites=true&w=majority",
     //   {
     //     useNewUrlParser: true,
     //     useUnifiedTopology: true,

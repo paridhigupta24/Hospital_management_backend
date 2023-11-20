@@ -5,7 +5,7 @@ const app = express();
 const collection = require("./mongo")
 app.use(express.json());
 
-const allowedOrigins = ['http://localhost:3000'];
+const allowedOrigins = ['http://localhost:3000','https://hospital-management-front.vercel.app'];
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -20,7 +20,7 @@ const corsOptions = {
   credentials: true,
 };
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 const db = async () => {
   try {
